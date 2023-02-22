@@ -15,5 +15,6 @@ class Input{
         System.out.printf("%1d items at %s each.\n", numItems, money.format(itemCost));
         System.out.printf("Total amount due %s.\nPlease take your merchandise.\n", money.format(itemCost*numItems));
         System.out.printf("Place %s in an envelope\nand slide it under the office door.\nThank you for using the self-service line.\n", money.format(itemCost*numItems));
+        sc.close();
     }
 }
