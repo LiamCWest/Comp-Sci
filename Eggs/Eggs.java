@@ -8,7 +8,7 @@ public class Eggs {
         Scanner sc = new Scanner(System.in);
         System.out.println("How many eggs?");
         int eggs = sc.nextInt();
-        System.out.printf("That is %d crate(s), %d carton(s), and %d egg(s) leftover.", (int) Math.floor(eggs/180), (int) Math.floor((eggs%180)/12), (int) Math.floor((eggs%180)%12));
+        System.out.printf("That is %d crate(s), %d carton(s), and %d egg(s) leftover.\n", (int) Math.floor(eggs/180), (int) Math.floor((eggs%180)/12), (int) Math.floor((eggs%180)%12));
         sc.close();
     }
 }
