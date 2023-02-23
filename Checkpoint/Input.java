@@ -7,15 +7,21 @@ import javax.swing.JOptionPane;
 
 class Input{
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
         //Question 1
-        Madlibs("There once was a person named __NAME__ who lived in __CITY__. At the age of __AGE__, __NAME__ went to college at __COLLEGE__. __NAME__ graduated and went to work as a __PROFESSION__. Then, __NAME__ adopted a(n) __ANIMAL__ named __PETNAME__. They both lived happily ever after!");
+        // Madlibs("There once was a person named __NAME__ who lived in __CITY__. At the age of __AGE__, __NAME__ went to college at __COLLEGE__. __NAME__ graduated and went to work as a __PROFESSION__. Then, __NAME__ adopted a(n) __ANIMAL__ named __PETNAME__. They both lived happily ever after!");
 
         //Question 2
+        Salary(sc);
 
         //Question 3
-        // Items();
+        Items(sc);
+
+        sc.close();
     }
 
+    //Question 1
     static void Madlibs(String story){
         for(int i = 0; i<story.length(); i++){
             Character c = story.charAt(i);
@@ -42,17 +48,25 @@ class Input{
         }
     }
 
+    //Question 2
+    static void Salary(Scanner sc){
+        System.out.println("Minimum Wage:");
+        double wage = sc.nextDouble();
+        System.out.println("Hours Worked");
+        double hours = sc.nextDouble();
+        NumberFormat money = NumberFormat.getCurrencyInstance();
+
+        System.out.printf("The salary is %s\n", money.format(hours*wage));
+    }
+
     //Question 3
-    static void Items(){
+    static void Items(Scanner sc){
         System.out.println("Enter the number of items purchased\nfollowed by the cost of one item.");
-        Scanner sc = new Scanner(System.in);
-        String items = sc.nextLine();
-        int numItems = Integer.parseInt(items.substring(0, items.indexOf(" ")));
-        double itemCost = Double.parseDouble(items.substring(items.indexOf(" ")));
+        int numItems = Integer.parseInt(sc.next());
+        double itemCost = Double.parseDouble(sc.next());
         NumberFormat money = NumberFormat.getCurrencyInstance();
         System.out.printf("%1d items at %s each.\n", numItems, money.format(itemCost));
         System.out.printf("Total amount due %s.\nPlease take your merchandise.\n", money.format(itemCost*numItems));
         System.out.printf("Place %s in an envelope\nand slide it under the office door.\nThank you for using the self-service line.\n", money.format(itemCost*numItems));
-        sc.close();
     }
 }
