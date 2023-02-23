@@ -10,18 +10,23 @@ class Input{
         Scanner sc = new Scanner(System.in);
 
         //Question 1
+        System.out.println("Question 1:");
         Madlibs("There once was a person named __NAME__ who lived in __CITY__. At the age of __AGE__, __NAME__ went to college at __COLLEGE__. __NAME__ graduated and went to work as a __PROFESSION__. Then, __NAME__ adopted a(n) __ANIMAL__ named __PETNAME__. They both lived happily ever after!");
-
+        
         //Question 2
+        System.out.println("\nQuestion 2:");
         Salary(sc);
-
+        
         //Question 3
+        System.out.println("\nQuestion 3:");
         Items(sc);
-
+        
         //Question 4
+        System.out.println("\nQuestion 4:");
         Stocks(600, 21.77, 2);
-
+        
         //Question 5
+        System.out.println("\nQuestion 5:");
         Issue();
 
         sc.close();
