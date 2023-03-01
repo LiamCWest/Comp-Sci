@@ -67,14 +67,6 @@ class Input{
         System.out.printf("The salary is %s\n", money.format(hours*wage));
     }
 
-    //Question 4
-    static void Stocks(int shares, double price, int commission){
-        NumberFormat money = NumberFormat.getCurrencyInstance();
-        double totalCost = shares*price;
-        double commissionFee = totalCost*((double) commission/100);
-        System.out.printf("Amount paid for stock alone: %s\nCommission fee: %s\nTotal amount paid: %s\n", money.format(totalCost), money.format(commissionFee), money.format(commissionFee+totalCost));
-    }
-
     //Question 3
     static void Items(Scanner sc){
         System.out.println("Enter the number of items purchased\nfollowed by the cost of one item.");
@@ -85,7 +77,15 @@ class Input{
         System.out.printf("Total amount due %s.\nPlease take your merchandise.\n", money.format(itemCost*numItems));
         System.out.printf("Place %s in an envelope\nand slide it under the office door.\nThank you for using the self-service line.\n", money.format(itemCost*numItems));
     }
-
+    
+    //Question 4
+    static void Stocks(int shares, double price, int commission){
+        NumberFormat money = NumberFormat.getCurrencyInstance();
+        double totalCost = shares*price;
+        double commissionFee = totalCost*((double) commission/100);
+        System.out.printf("Amount paid for stock alone: %s\nCommission fee: %s\nTotal amount paid: %s\n", money.format(totalCost), money.format(commissionFee), money.format(commissionFee+totalCost));
+    }
+    
     //Question 5
     static void Issue(){
         Scanner keyboard = new Scanner(System.in);
