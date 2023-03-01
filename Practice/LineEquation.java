@@ -1,26 +1,31 @@
 package Practice;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class LineEquation {
     public static void main(String[] args) {
-        Double[] pointOne = new Double[]{1d,2d};
-        Double[] pointTwo = new Double[]{9d,5d};
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println(DistTwoPoints(pointOne, pointTwo));
-        System.out.println(Yint(pointOne, pointTwo));
-        System.out.println(Slope(pointOne, pointTwo));
+        TitlePrint("Equation of a Line Calculator");
+
+        double[] pointOne = Arrays.stream(Input(sc, "Enter the first point: ").split(",")).mapToDouble(Double::valueOf).toArray();
+        double[] pointTwo = Arrays.stream(Input(sc, "Enter the second point: ").split(",")).mapToDouble(Double::valueOf).toArray();
+
+        System.out.printf("Distance between the points: %3.2f\n", DistTwoPoints(pointOne, pointTwo));
+        System.out.printf("Y intercept of the line: %3.2f\n", Yint(pointOne, pointTwo));
+        System.out.printf("Slope of the line: %3.2f\n", Slope(pointOne, pointTwo));
     }
 
-    static Double DistTwoPoints(Double[] pointOne, Double[] pointTwo){
+    static double DistTwoPoints(double[] pointOne, double[] pointTwo){
         return Math.sqrt(Math.pow(pointOne[0]-pointTwo[0], 2)+Math.pow(pointOne[1]-pointTwo[1], 2));
     }
 
-    static Double Yint(Double[] pointOne, Double[] pointTwo){
+    static double Yint(double[] pointOne, double[] pointTwo){
         return pointOne[0]-(Slope(pointOne, pointTwo)*pointOne[0]);
     }
 
-    static Double Slope(Double[] pointOne, Double[] pointTwo){
+    static double Slope(double[] pointOne, double[] pointTwo){
         return (pointOne[1]-pointTwo[1])/(pointOne[0]-pointTwo[0]);
     }
 
@@ -30,5 +35,16 @@ public class LineEquation {
         System.out.print(q);
         //accept and return answer
         return sc.next();
+    }
+
+    //Function to print a heading/title in a fancy way
+    static void TitlePrint(String title){
+        //define and create a varible for the "*" that will be printed
+        String stars = "";
+        for(int i = 0; i<title.length()+12; i++){
+            stars += "*";
+        }
+        //print title surounded by stars
+        System.out.printf("\n%s\n*     %s     *\n%s\n", stars, title, stars);
     }
 }
