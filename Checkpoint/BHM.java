@@ -1,4 +1,4 @@
-package BHM;
+package Checkpoint;
 
 import javax.swing.JOptionPane;
 

@@ -1,4 +1,4 @@
-package Eggs;
+package Checkpoint;
 
 import java.util.Scanner;
 import java.lang.Math;

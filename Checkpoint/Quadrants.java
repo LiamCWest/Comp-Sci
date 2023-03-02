@@ -1,4 +1,4 @@
-package Quadrants;
+package Checkpoint;
 
 import java.util.Scanner;
 
