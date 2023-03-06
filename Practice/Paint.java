@@ -1,11 +1,25 @@
-package Functions;
+package Practice;
+
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
-public class Functions {
+public class Paint {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        TitlePrint("Welcome to the Paint Store!");
+
+        System.out.println("\nYou've got walls!\nWe've got paint!\n");
+
+        double width = Double.parseDouble(Input(sc, "What is width of the wall in m? "));
+        double height = Double.parseDouble(Input(sc, "What is height of the wall in m? "));
+        double area = width*height;
+        double cans = area/4;
+
+        System.out.printf("\nThe surface you wish to paint is %3.2f m^2.\nThat means you need %3.2f cans of paint.\n\n", area, cans);
+
+        TotalPrint(cans*17.5, true);
+    }
+
     //Function to ask a question and return an answer
     static String Input(Scanner sc, String q){
         //ask question
@@ -25,22 +39,6 @@ public class Functions {
         System.out.printf("\n%s\n*     %s     *\n%s\n", stars, title, stars);
     }
 
-    //Function to count occurrences
-    static int countOccurrences(int[] carray, int x){
-        ArrayList<Integer> clist = new ArrayList<Integer>(Arrays.asList(Arrays.stream(carray).boxed().toArray( Integer[]::new )));;
-        return Collections.frequency(clist, x);
-    }
-
-    //Function get the nth index of a substring in a string
-    static Integer countedIndex(String s, int i, String n, int add){
-        if(i == 0){
-            return s.indexOf(n, add);
-        }
-        else{
-            return countedIndex(s, i-1, n, s.indexOf(n, add)+1);
-        }
-    }
-
     //Function to print a total cost, with taxes if needed
     static void TotalPrint(double total, boolean tax){
         NumberFormat money = NumberFormat.getCurrencyInstance();
@@ -49,6 +47,6 @@ public class Functions {
             taxes = total*0.13;
             System.out.printf("Sub-total: %s\nTax: %s\n", money.format(total), money.format(taxes));
         }
-        System.out.printf("Total: %s", money.format(total+taxes));
+        System.out.printf("Total: %s\n", money.format(total+taxes));
     }
 }

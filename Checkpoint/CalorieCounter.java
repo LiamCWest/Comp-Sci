@@ -72,11 +72,12 @@ public class CalorieCounter {
         TitlePrint("Welcome to Chip’s Fast Food Emporium");
 
         int cals = 0;
-        int cost = 0;
+        Double cost = 0.0;
         for (String section : menuOrder){
             Object food = MenuListing(sc, menu.get(section), section);
             cals += (food != "no") ? menu.get(section).get(food).get("Cals") : 0;
             cost += (food != "no") ? menu.get(section).get(food).get("Cost") : 0;
+            System.out.println(cost);
         }
 
         System.out.printf("\nYour total calorie count is %d\n", cals);
