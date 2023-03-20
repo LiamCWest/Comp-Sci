@@ -17,7 +17,7 @@ public class Lab2 {
         //Question 1
         TitlePrint("Question 1 - Product of Three Numbers");
         Product(sc);
-
+        
         //Queston 2
         TitlePrint("Question 2 - Speed Fines");
         Speed(sc);
