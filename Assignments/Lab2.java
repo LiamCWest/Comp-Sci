@@ -114,7 +114,7 @@ public class Lab2 {
         else if((countOccurrences(numNums, 1) == 5) && (numNums[0] == 0|| numNums[5] == 0)){
             System.out.println("Large Straight!");
         }
-        else if((countOccurrences(numNums, 0) < 3 && ((numNums[0] == 0 && numNums[1] == 0) || (numNums[4] == 0 && numNums[5] == 0)))){
+        else if((countOccurrences(numNums, 0) < 3 && ((numNums[0] == 0 && numNums[1] == 0) || (numNums[4] == 0 && numNums[5] == 0) || (numNums[0] == 0 && numNums[5] == 0)))){
             System.out.println("Small Straight!");
         }
     }
