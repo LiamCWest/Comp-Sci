@@ -51,4 +51,8 @@ public class Functions {
         }
         System.out.printf("Total: %s", money.format(total+taxes));
     }
+
+    static String Line(Character c, int i){
+        return new String(new char[i]).replace('\0', c);
+    }
 }
