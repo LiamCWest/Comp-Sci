@@ -3,7 +3,9 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Functions {
     //Function to ask a question and return an answer
@@ -55,4 +57,12 @@ public class Functions {
     static String Line(Character c, int i){
         return new String(new char[i]).replace('\0', c);
     }
+
+    private static <K, V> V mappedValue(TreeMap<K, V> map, K key) {
+        Entry<K, V> e = map.floorEntry(key);
+        if (e != null && e.getValue() == null) {
+            e = map.lowerEntry(key);
+        }
+        return e == null ? null : e.getValue();
+    }    
 }
