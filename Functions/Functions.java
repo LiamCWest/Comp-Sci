@@ -9,11 +9,14 @@ import java.util.TreeMap;
 
 public class Functions {
     //Function to ask a question and return an answer
-    static String Input(Scanner sc, String q){
+    static String Input(Scanner sc, String q, Boolean lineOrNext){
         //ask question
         System.out.print(q);
         //accept and return answer
-        return sc.next();
+        if(lineOrNext)
+            return sc.nextLine();
+        else
+            return sc.next();
     }
 
     //Function to print a heading/title in a fancy way
