@@ -64,5 +64,13 @@ public class Functions {
             e = map.lowerEntry(key);
         }
         return e == null ? null : e.getValue();
-    }    
+    }
+
+    //Function to get the longest of two strings
+    public static String getLongestString(String s1, String s2) {
+        if(s1.length() > s2.length())
+            return s1;
+        else
+            return s2;
+    }
 }
