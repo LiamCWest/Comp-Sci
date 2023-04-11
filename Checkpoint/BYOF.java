@@ -36,7 +36,7 @@ public class BYOF {
 
     //Question 1
     public static void Question1(Scanner sc){
-        String name = Input(sc, "What is your name? ", true);
+        String name = Input(sc, "What is your name? ", false);
         for (int i = 0; i < 2; i++) {
             Line1();
         }
@@ -57,7 +57,7 @@ public class BYOF {
         //Calculate tax
         double price = Double.parseDouble(Input(sc, "Enter the price of the item: ", false));
         double tax = Double.parseDouble(Input(sc, "Enter the tax rate: ", false));
-        double total = price + (price * tax);
+        double total = price * (tax+1);
         System.out.printf("The total price is $%.2f%n", total);
     }
 
@@ -133,15 +133,21 @@ public class BYOF {
     
     //Question 4
     public static void Question4(Scanner sc){
-        //Phone list
-        String name = PhoneList(sc);
-        System.out.println(name);
+        while(true){
+            //Phone list
+            String firstName = Input(sc, "Enter the name (0 to exit): ", false);
+            if(firstName.equals("0")){
+                System.out.println("Goodbye");
+                return;
+            }
+            String lastName = sc.next();
+            String name = PhoneList(sc, firstName, lastName);
+            System.out.println(name);
+        }
     }
 
     //Phone list
-    public static String PhoneList(Scanner sc){
-        String firstName = Input(sc, "Enter the name: ", false);
-        String lastName = sc.next();
+    public static String PhoneList(Scanner sc, String firstName, String lastName){
         return lastName + ", " + firstName;
     }
 
