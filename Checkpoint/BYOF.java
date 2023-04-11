@@ -5,20 +5,32 @@ public class BYOF {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        String choice = Input(sc, "Which question do you want to run? ", false);
-        switch (choice) {
-            case "1":
-                Question1(sc);
-                break;
-            case "2":
-                Question2(sc);
-                break;
-            case "3":
-                Question3(sc);
-                break;
-            default:
-                System.out.println("Invalid choice");
-                break;
+        String choice = "";
+        while(!(choice.equals("0"))){
+            choice = Input(sc, "Which question do you want to run? (0 to exit) ", false);
+            switch (choice) {
+                case "0":
+                    System.out.println("Goodbye");
+                    break;
+                case "1":
+                    Question1(sc);
+                    break;
+                case "2":
+                    Question2(sc);
+                    break;
+                case "3":
+                    Question3(sc);
+                    break;
+                case "4":
+                    Question4(sc);
+                    break;
+                case "5":
+                    Question5(sc);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
         }
     }
 
@@ -119,6 +131,42 @@ public class BYOF {
         }
     }
     
+    //Question 4
+    public static void Question4(Scanner sc){
+        //Phone list
+        String name = PhoneList(sc);
+        System.out.println(name);
+    }
+
+    //Phone list
+    public static String PhoneList(Scanner sc){
+        String firstName = Input(sc, "Enter the name: ", false);
+        String lastName = sc.next();
+        return lastName + ", " + firstName;
+    }
+
+    //Question 5
+    public static void Question5(Scanner sc){
+        int num = Integer.parseInt(Input(sc, "Enter a number: ", false));
+        if(checkPrime(num))
+            System.out.println("The number is prime");
+        else
+            System.out.println("The number is not prime");
+    }
+
+    //Check if number is prime
+    public static Boolean checkPrime(int num){
+        if (num > 1){
+            for (int i = 2; i < num; i++) {
+                if(num % i == 0)
+                    return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //Function to ask a question and return an answer
     static String Input(Scanner sc, String q, Boolean lineOrNext){
         //ask question
