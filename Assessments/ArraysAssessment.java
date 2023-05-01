@@ -5,8 +5,12 @@ import java.util.Arrays;
 
 public class ArraysAssessment {
     public static void main(String[] args) throws Exception {
-        //read in the file
+        //read in the file and display error message if the file is not found
         File rainFile = new File("/home/archiso/Code/Java/Comp Sci/Assessments/Monthly Precipitation.txt");
+        if (!rainFile.exists()) {
+            System.out.println("File not found");
+            System.exit(0);
+        }
         BufferedReader br = new BufferedReader(new FileReader(rainFile));
 
         //store the data in arrays
