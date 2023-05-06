@@ -1,45 +1,84 @@
+// Java implementation of QuickSort
 package Checkpoint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
 
-public class Quicksort {
-    public static void main(String[] args) {
-        int[] arr = new int[]{2,123,1,11,4,6};
-        // Sort(arr, arr.length-1, 0);
-        System.out.println(Arrays.toString(Sort(arr, arr.length-1, 0)));
-    }
+class QuickSort {
 
-    public static int[] Sort(int[] arr, int high, int low){
-        System.out.println(Arrays.toString(arr));
-        if(arr[low]<arr[high]){
-            ArrayList<int[]> par = Partition(arr, high, low);
-            int pi = par.get(1)[0];
-            arr = par.get(0);
-            arr = Sort(arr, pi-1, low);
-            arr = Sort(arr, high, pi+1);
-        }
-        return arr;
-    }
+	// A utility function to swap two elements
+	static void swap(int[] arr, int i, int j)
+	{
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
 
-    public static int[] Swap(int[] arr, int i, int j){
-        int x = arr[i];
-        arr[i] = arr[j];
-        arr[j] = x;
-        return arr;
-    }
+	// This function takes last element as pivot,
+	// places the pivot element at its correct position
+	// in sorted array, and places all smaller to left
+	// of pivot and all greater elements to right of pivot
+	static int partition(int[] arr, int low, int high)
+	{
+		// Choosing the pivot
+		int pivot = arr[high];
 
-    public static ArrayList<int[]> Partition (int[] arr, int high, int low){
-        int pivot = arr[high];
-        int i = (low-1);
-        for (int j = low; j <= high-1; j++){
-            if (arr[j] < pivot){
-                i++;
-                arr = Swap(arr, i, j);
-                System.out.println(Arrays.toString(arr));
-            }
-        }
-        arr = Swap(arr, i+1, high);
-        return new ArrayList<int[]>(Arrays.asList(arr, new int[]{i + 1}));
-    }
+		// Index of smaller element and indicates
+		// the right position of pivot found so far
+		int i = (low - 1);
+
+		for (int j = low; j <= high - 1; j++) {
+
+			// If current element is smaller than the pivot
+			if (arr[j] < pivot) {
+
+				// Increment index of smaller element
+				i++;
+				swap(arr, i, j);
+			}
+		}
+		swap(arr, i + 1, high);
+		return (i + 1);
+	}
+
+	// The main function that implements QuickSort
+	// arr[] --> Array to be sorted,
+	// low --> Starting index,
+	// high --> Ending index
+	static void quickSort(int[] arr, int low, int high)
+	{
+		if (low < high) {
+
+			// pi is partitioning index, arr[p]
+			// is now at right place
+			int pi = partition(arr, low, high);
+
+			// Separately sort elements before
+			// partition and after partition
+			quickSort(arr, low, pi - 1);
+			quickSort(arr, pi + 1, high);
+		}
+	}
+	// To print sorted array
+	public static void printArr(int[] arr){
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+        System.out.println();
+	}
+	// Driver Code
+	public static void main(String[] args)
+	{
+		int[] arr = { 10, 7, 8, 9, 1, 5 };
+		int N = arr.length;
+
+		// Function call
+        printArr(arr);
+		quickSort(arr, 0, N - 1);
+		System.out.println("Sorted array:");
+		printArr(arr);
+	}
 }
+
+// This code is contributed by Ayush Choudhary
+// Improved by Ajay Virmoti
+
