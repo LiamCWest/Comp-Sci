@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class Building {
     private int[] pos;
-    private int doors;
     private int[] size;
     private int[] windowSize;
     private int gap;
@@ -14,9 +13,8 @@ public class Building {
     private int[] windows;
     private int wallGap;
 
-    public Building(int[] pos, int doors, int[] size, int[] windowSize, int gap, Color color, Color windowColor){
+    public Building(int[] pos, int[] size, int[] windowSize, int gap, Color color, Color windowColor){
         this.pos = pos;
-        this.doors = doors;
         this.size = size;
         this.windowSize = windowSize;
         this.gap = gap;
@@ -34,12 +32,23 @@ public class Building {
          */
         g.setColor(color);
         g.fillRect(pos[0], pos[1], size[0], size[1]);
+        g.setColor(Color.BLACK);
+        g.drawRect(pos[0], pos[1], size[0], size[1]);
+        
+        //windows but they make it really slow
+        // g.setColor(windowColor);
+        // for(int i = 0; i < windows[0]; i++){
+        //     for(int j = 0; j < windows[1]; j++){
+        //         g.fillRect(pos[0]+((windowSize[0]+gap)*i)+wallGap+(int)Math.round(gap/2), pos[1]+((windowSize[1]+gap)*j)+gap+(int)Math.round(gap/2), windowSize[0], windowSize[1]);
+        //     }
+        // }
+    }
 
-        g.setColor(windowColor);
-        for(int i = 0; i < windows[0]; i++){
-            for(int j = 0; j < windows[1]; j++){
-                g.fillRect(pos[0]+((windowSize[0]+gap)*i)+wallGap+(int)Math.round(gap/2), pos[1]+((windowSize[1]+gap)*j)+gap+(int)Math.round(gap/2), windowSize[0], windowSize[1]);
-            }
-        }
+    public void MoveBuilding(int[] newPos){
+        this.pos = newPos;
+    }
+
+    public int[] GetPos(){
+        return this.pos;
     }
 }
