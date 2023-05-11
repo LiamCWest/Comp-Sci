@@ -20,18 +20,24 @@ public class Night extends JFrame{
     }
 
     public void paint(Graphics g){
-        while(true){
+        for(int t = 0; t < 100; t++){
             g.setColor(new Color(0,0,0,255));
             g.fillRect(0, 0, this.getSize().width+100, this.getSize().height+100);
 
             drawRoad(g);
-            drawBuildings(g);
+
+            //far background buildings
+            Color farBuildingColor = new Color(39,43,89,255);
+            drawBuilding(g, t, farBuildingColor, 100, 50, 75, this.getSize().height-this.getSize().height/4);
+            drawBuilding(g, t, farBuildingColor, 80, 40, 125, this.getSize().height-this.getSize().height/4);
+            
+            //close background buildings
+            Color closeBuildingColor = new Color(53,62,128,255);
+            drawBuilding(g, t, closeBuildingColor, 145, 75, 0, this.getSize().height-this.getSize().height/4);
 
             try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                Thread.sleep(20);
+            } catch (InterruptedException e) {}
         }
     }
 
@@ -41,11 +47,8 @@ public class Night extends JFrame{
         g.fillRect(0, this.getSize().height-this.getSize().height/4, this.getSize().width, this.getSize().height/4);
     }
 
-    public void drawBuildings(Graphics g){
-        int[] pos = new int[]{};
-        int[] size = new int[]{};
-        Color color = new Color(255,255,255,255);
+    public void drawBuilding(Graphics g, int frame, Color color, int height, int width, int x, int y){
         g.setColor(color);
-        g.fillRect(pos[0], pos[1], size[0], size[1]);
+        g.fillRect(x-frame, y-height, width, height);
     }
 }
