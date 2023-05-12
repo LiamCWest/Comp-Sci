@@ -21,15 +21,17 @@ public class Night extends JFrame{
 
     public void paint(Graphics g){
         for(int t = 0; t < 100; t++){
+            System.out.println(t);
             g.setColor(new Color(0,0,0,255));
             g.fillRect(0, 0, this.getSize().width+100, this.getSize().height+100);
 
             drawRoad(g);
 
             //far background buildings
+            int farSpeed = (int)t/2;
             Color farBuildingColor = new Color(39,43,89,255);
-            drawBuilding(g, t, farBuildingColor, 100, 50, 75, this.getSize().height-this.getSize().height/4);
-            drawBuilding(g, t, farBuildingColor, 80, 40, 125, this.getSize().height-this.getSize().height/4);
+            drawBuilding(g, farSpeed, farBuildingColor, 100, 50, 75, this.getSize().height-this.getSize().height/4);
+            drawBuilding(g, farSpeed, farBuildingColor, 80, 40, 125, this.getSize().height-this.getSize().height/4);
             
             //close background buildings
             Color closeBuildingColor = new Color(53,62,128,255);
@@ -48,7 +50,14 @@ public class Night extends JFrame{
     }
 
     public void drawBuilding(Graphics g, int frame, Color color, int height, int width, int x, int y){
-        g.setColor(color);
-        g.fillRect(x-frame, y-height, width, height);
+        if(!(x+width < 0)){
+            int xpos = x-frame;
+            if(xpos < 0){
+                width += xpos;
+                xpos = 0;
+            }
+            g.setColor(color);
+            g.fillRect(xpos, y-height, width, height);
+        }
     }
 }
