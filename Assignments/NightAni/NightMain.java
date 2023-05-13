@@ -70,12 +70,12 @@ public class NightMain extends JFrame{
             width -= i*(width*0.05);
             height -= i*(height*0.05);
 
-            Double buildingMultiplier = 1.25;
-            Double WMulti = 1.4;
+            Double buildingMultiplier = 1.0;
+            Double WMulti = 1.6;
 
             while(offset < (width+(0.075*width))*2-(i*width+(0.075*width))){
                 int sizeWidth = (int)Math.round((Math.random()*(0.075*width*buildingMultiplier*WMulti))+(0.05*width*buildingMultiplier*WMulti)+15);
-                int sizeHeight = (int)Math.round((Math.random()*(0.25*height*buildingMultiplier)+(i*height*0.075))+(0.1875*height*buildingMultiplier)+(i*height*0.05));
+                int sizeHeight = (int)Math.round((Math.random()*(0.1*height*buildingMultiplier))+(0.3*height*buildingMultiplier)+(i*height*0.05));
                 int[] size = new int[]{sizeWidth, sizeHeight};
 
                 int R = (int)(Math.random()*20)+61;
@@ -90,7 +90,7 @@ public class NightMain extends JFrame{
                 int mainHeight = 250;
                 int mainWidth = 100;
 
-                int mainX = offset + 200 + mainWidth;
+                int mainX = 1118;
                 int mainY = this.getSize().height-mainHeight-(int)(0.2*this.getSize().height);
 
                 this.mainBuilding = new Building(new int[]{mainX, mainY}, new int[]{mainWidth, mainHeight}, new Color(255, 255, 255, 255));
@@ -114,7 +114,7 @@ public class NightMain extends JFrame{
 
     public void drawMainBuilding(Graphics g, int move){
         int[] pos = this.mainBuilding.GetPos();
-        /*if((pos[0] <= this.getSize().width) && (pos[0] >= 0-this.mainBuilding.GetWidth()))*/ this.mainBuilding.DrawBuilding(g);
+        if((pos[0] <= this.getSize().width) && (pos[0] >= 0-this.mainBuilding.GetWidth())) this.mainBuilding.DrawBuilding(g);
         pos = this.mainBuilding.GetPos();
         System.out.println(pos[0] + " " + pos[1]);
         this.mainBuilding.MoveBuilding(new int[]{pos[0] - (this.getSize().width/200), pos[1]});
@@ -137,11 +137,6 @@ class Building {
     }
 
     public void DrawBuilding(Graphics g){
-        /* 
-         * TODO:
-         * doors
-         * move stuff from NightMain.java
-         */
         g.setColor(color);
         g.fillRect(pos[0], pos[1], size[0], size[1]);
         g.setColor(Color.BLACK);
