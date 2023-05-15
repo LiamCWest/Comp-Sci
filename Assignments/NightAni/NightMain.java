@@ -13,6 +13,8 @@ public class NightMain extends JFrame{
     private int layers;
     private Human human;
 
+    private ArrayList<Star> stars;
+
     private BufferedImage offScreenBuffer;
 
     public static void main(String[] args) {
@@ -24,10 +26,11 @@ public class NightMain extends JFrame{
         this.layers = 2;
 
         //Set the title
-        setTitle("Welcome to Java");
+        setTitle("City Street Animation");
         //Set the size of the window
         setSize(400, 400);
         this.buildings = GenBuildings(this.layers);
+        this.stars = GenStars();
         this.car = new Car(new int[]{25, 300}, new int[]{1, 1}, new Color(255, 0, 0, 255));
         this.human = new Human(new int[]{30, 310}, new int[]{50,50}, Color.BLUE, Color.CYAN);
         //Set the close operation
@@ -42,11 +45,13 @@ public class NightMain extends JFrame{
 
     private void startAnimation() {
         Thread animationThread = new Thread(() -> {
+            int frame = 0;
             int t = 0;
             //first part of animation, moving background buildings
             while (buildings.get(1).get(0).GetPos()[0] > -10) {
-                renderFrame(t, 0);
+                renderFrame(t, 0, frame);
                 t++;
+                frame++;
                 try {
                     Thread.sleep(aniSpeed);
                 } catch (InterruptedException e) {
@@ -56,7 +61,8 @@ public class NightMain extends JFrame{
             
             //second part of animation, moving car
             for (int n = 0; n < 100; n++) {
-                renderFrame(t, 1);
+                renderFrame(t, 1, frame);
+                frame++;
                 try {
                     Thread.sleep(aniSpeed);
                 } catch (InterruptedException e) {
@@ -65,15 +71,20 @@ public class NightMain extends JFrame{
             }
             
             //wait
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            for (int n = 0; n < 150; n++){
+                renderFrame(t, 4, frame);
+                frame++;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             //third part of animation, moving human to building
             for (int n = 0; n < 155; n++) {
-                renderFrame(t, 2);
+                renderFrame(t, 2, frame);
+                frame++;
                 try {
                     Thread.sleep(aniSpeed*2);
                 } catch (InterruptedException e) {
@@ -83,23 +94,33 @@ public class NightMain extends JFrame{
 
             //fourth part of animation, moving human to doors
             for (int n = 0; n < 55; n++) {
-                renderFrame(t, 3);
+                renderFrame(t, 3, frame);
+                frame++;
                 try {
                     Thread.sleep(aniSpeed*2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            renderFrame(t, 4);
+            while (true){
+                renderFrame(t, 4, frame);
+                frame++;
+                try {
+                    Thread.sleep(aniSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         });
         animationThread.start();
     }
 
-    private void renderFrame(int t, int part) {
+    private void renderFrame(int t, int part, int frame) {
         Graphics offScreenGraphics = offScreenBuffer.getGraphics();
         offScreenGraphics.setColor(new Color(0, 0, 0, 255));
         offScreenGraphics.fillRect(0, 0, this.getSize().width + 100, this.getSize().height + 100);
 
+        drawStars(offScreenGraphics, frame, part);
         drawRoad(offScreenGraphics, (this.getSize().width / 200) * t);
         drawBuilding(offScreenGraphics, part == 0);
         drawMainBuilding(offScreenGraphics, part == 0);
@@ -149,6 +170,30 @@ public class NightMain extends JFrame{
             }
         }
         return buildings;
+    }
+
+    public ArrayList<Star> GenStars(){
+        ArrayList<Star> stars = new ArrayList<Star>();
+        ArrayList<int[]> starPos = new ArrayList<int[]>();
+        int width = this.getSize().width;
+        int height = this.getSize().height/2;
+        for(int i = 0; i < 30; i++){
+            starPos.add(StarRandom(starPos, width, height));
+            stars.add(new Star(starPos.get(i), new Color(255,255,255,255), (int)(Math.random()*255)));
+        }
+        return stars;
+    }
+
+    public int[] StarRandom(ArrayList<int[]> stars, int width, int height){
+        int x = (int)(Math.random()*width);
+        int y = (int)(Math.random()*height);
+        int spacing = 10;
+        for(int[] star : stars){
+            if((star[0] < x+spacing && star[0] > x-spacing) && (star[1] < y+spacing && star[1] > y-spacing)){
+                return StarRandom(stars, width, height);
+            }
+        }
+        return new int[]{x,y};
     }
 
     public void drawBuilding(Graphics g, Boolean move){
@@ -210,6 +255,21 @@ public class NightMain extends JFrame{
         else{
             int[] carPos = this.car.GetPos();
             this.human.MoveHuman(new int[]{carPos[0]+30, carPos[1]});
+        }
+    }
+
+    public void drawStars(Graphics g, int t, int part){
+        int multi = 1;
+        if((part == 2) || (part == 3)) multi = 2;
+        for(Star star : this.stars){
+            int alpha = star.getAlpha();
+            if(alpha == 0) star.setIncrease(1);
+            else if(alpha == 255) star.setIncrease(-1);
+            int newAlpha = alpha+(star.getIncrease()*multi);
+            if(newAlpha > 255) newAlpha = 255;
+            else if (newAlpha < 0) newAlpha = 0;
+            star.setAlpha(newAlpha);
+            star.DrawStar(g);
         }
     }
 
@@ -395,5 +455,48 @@ class Human {
 
     public int[] GetPos() {
         return this.pos;
+    }
+}
+
+class Star{
+    private int[] pos;
+    private Color color;
+    private int alpha;
+    private int increase = 1;
+
+    public Star(int[] pos, Color color, int alpha){
+        this.pos = pos;
+        this.color = color;
+        this.alpha = alpha;
+    }
+
+    public void DrawStar(Graphics g){
+        g.setColor(setAlpha(color, alpha));
+        g.fillRect(pos[0]+3, pos[1], 2, 8);
+        g.fillRect(pos[0], pos[1]+3, 8, 2);
+    }
+
+    private Color setAlpha(Color color, int alpha){
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
+    
+        return  new Color(red, green, blue, alpha);
+    }
+
+    public int getAlpha(){
+        return this.alpha;
+    }
+
+    public void setAlpha(int alpha){
+        this.alpha = alpha;
+    }
+
+    public int getIncrease(){
+        return this.increase;
+    }
+
+    public void setIncrease(int increase){
+        this.increase = increase;
     }
 }
