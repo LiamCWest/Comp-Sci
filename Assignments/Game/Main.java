@@ -6,3 +6,13 @@ public class Main {
         game.play();
     }
 }
+/*
+TODO
+menu
+Class for levels
+stoarage of some sort
+level editor maybe?
+ememies
+fighting system
+objective, win condition, and just generally what the game is
+*/
