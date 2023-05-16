@@ -8,11 +8,16 @@ public class Main {
 }
 /*
 TODO
+proper jumping
+moving objects - physics system
 menu
+    level selector
+    settings
+        keybinds maybe
 Class for levels
-stoarage of some sort
+storage of some sort
 level editor maybe?
-ememies
+enemies
 fighting system
 objective, win condition, and just generally what the game is
 */

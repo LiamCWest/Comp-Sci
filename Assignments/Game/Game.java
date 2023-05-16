@@ -64,20 +64,22 @@ public class Game extends JFrame{
     }
 
     public void movementInput(){
-        panel.getInputMap().put(KeyStroke.getKeyStroke("W"), "moveUp");
-        panel.getActionMap().put("moveUp", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                movementVector.set(1, -1);
-            }
-        });
-        panel.getInputMap().put(KeyStroke.getKeyStroke("S"), "moveDown");
-        panel.getActionMap().put("moveDown", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                movementVector.set(1, 1);
-            }
-        });
+        panel.getInputMap().put(KeyStroke.getKeyStroke("W"), "jumpPressed");
+    panel.getInputMap().put(KeyStroke.getKeyStroke("released W"), "jumpReleased");
+
+    panel.getActionMap().put("jumpPressed", new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gameManager.setJump(true);
+        }
+    });
+
+    panel.getActionMap().put("jumpReleased", new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gameManager.setJump(false);
+        }
+    });
         panel.getInputMap().put(KeyStroke.getKeyStroke("A"), "moveLeft");
         panel.getActionMap().put("moveLeft", new AbstractAction() {
             @Override
@@ -90,21 +92,6 @@ public class Game extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 movementVector.set(0, 1);
-            }
-        });
-        panel.getInputMap().put(KeyStroke.getKeyStroke("released W"), "stopMoveUp");
-        panel.getActionMap().put("stopMoveUp", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                movementVector.set(1, 0);
-            }
-        });
-
-        panel.getInputMap().put(KeyStroke.getKeyStroke("released S"), "stopMoveDown");
-        panel.getActionMap().put("stopMoveDown", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                movementVector.set(1, 0);
             }
         });
 
