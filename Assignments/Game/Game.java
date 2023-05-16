@@ -23,7 +23,7 @@ public class Game extends JFrame{
         setContentPane(panel);
 
         //Set the title
-        setTitle("City Street Animation");
+        setTitle("Game");
         //Set the size of the window
         setSize(1360, 768);
         //Set the close operation

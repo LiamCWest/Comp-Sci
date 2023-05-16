@@ -42,8 +42,6 @@ public class GameObject{
         if (shapeQ) {
             moveShapes(); // Update the movedShapes array before drawing
             for (Polygon shape : movedShapes) {
-                g.setColor(Color.BLUE);
-                g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
                 g.setColor(colors[0]);
                 g.fillPolygon(shape);
             }
@@ -59,19 +57,19 @@ public class GameObject{
     }
 
     public void move(){
-        if(hasGravity){
-            System.out.println(isGrounded());
-            // if(isGrounded()) System.exit(0);
-            if(!(isGrounded())){
-                velocity[1] += 1;
+        if(!(isColliding())){
+            if(hasGravity){
+                if(!(isGrounded())){
+                    velocity[1] += 1;
+                }
+                else if (velocity[1] > 0){
+                    velocity[1] = 0;
+                }
             }
-            else if (velocity[1] > 0){
-                velocity[1] = 0;
-            }
+            this.x += velocity[0];
+            this.y += velocity[1];
+            this.hitbox = moveHitbox(this.x, this.y);
         }
-        this.x += velocity[0];
-        this.y += velocity[1];
-        this.hitbox = moveHitbox(this.x, this.y);
     }
 
     public int getSpeed(){
@@ -128,9 +126,22 @@ public class GameObject{
     }
 
     private Boolean isGrounded(){
+        Rectangle checkBox = new Rectangle(hitbox.x + 1, hitbox.y + 1, hitbox.width - 2, hitbox.height - 1);
         for(GameObject gameObject : gameManager.getGameObjects()){
             if(gameObject != this){
-                if(gameObject.getHitbox().intersects(this.getHitbox())){
+                if(gameObject.getHitbox().intersects(checkBox)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private Boolean isColliding(){
+        Rectangle checkBox = new Rectangle(hitbox.x + velocity[0] + 1, hitbox.y + velocity[1], hitbox.width-1, hitbox.height-1);
+        for(GameObject gameObject : gameManager.getGameObjects()){
+            if(gameObject != this){
+                if(gameObject.getHitbox().intersects(checkBox)){
                     return true;
                 }
             }
