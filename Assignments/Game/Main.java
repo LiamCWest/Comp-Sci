@@ -8,7 +8,7 @@ public class Main {
 }
 /*
 TODO
-proper jumping
+proper jumping - mostly done, movement sometimes just stops I think its related to the collision detection or the jumping
 moving objects - physics system
 menu
     level selector
